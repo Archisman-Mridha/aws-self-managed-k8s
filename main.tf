@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.4.6"
+  required_version = ">= 1.4.6"
 
   required_providers {
 
@@ -17,14 +17,14 @@ terraform {
 }
 
 provider "aws" {
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key
+  access_key = var.args.credentials.access_key
+  secret_key = var.args.credentials.secret_key
 
-  region = var.aws_region
+  region = var.args.region
 
   default_tags {
     tags = {
-      project = var.project_name
+      project = var.args.project_name
     }
   }
 }
