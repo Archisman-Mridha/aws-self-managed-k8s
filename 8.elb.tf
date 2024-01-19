@@ -20,7 +20,7 @@ resource "aws_elb" "kube_api_server" {
   connection_draining = false
 
   health_check {
-    target = "SSL:6443"
+    target = "TCP:6443"
 
     healthy_threshold   = 2
     unhealthy_threshold = 2
@@ -28,11 +28,4 @@ resource "aws_elb" "kube_api_server" {
 
     interval = 10
   }
-}
-
-resource "aws_elb_attachment" "master_nodes" {
-  count = length(aws_instance.master_nodes)
-
-  elb      = aws_elb.kube_api_server.id
-  instance = aws_instance.master_nodes[count.index].id
 }

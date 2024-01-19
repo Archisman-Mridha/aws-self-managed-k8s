@@ -20,11 +20,11 @@ provider "aws" {
   access_key = var.args.credentials.access_key
   secret_key = var.args.credentials.secret_key
 
-  region = var.args.region
+  region = "us-east-2"
 
   default_tags {
     tags = {
-      project = var.args.project_name
+      project = "aws-self-managed-k8s"
     }
   }
 }

@@ -1,27 +1,36 @@
-# Self managed K8s in AWS Terraform module
+# Bootstrapping a self managed K8s cluster in AWS
 
-> This Terraform module creates a self-managed Kubernetes cluster in AWS. Don't use this for production purposes!
+This repository demonstrates how to create a self managed Kubernetes cluster in AWS using Kubeadm.
 
-You can view this module in the Terraform registry here - https://registry.terraform.io/modules/Archisman-Mridha/self-managed-k8s/aws/latest.
+After provisioning everything, the Terraform module outputs :
 
-It takes a list of availability zones (AZs) from the user and creates a public subnet in each AZ. A master node is bootstrapped in the first subnet. Then, a worker node is bootstrapped in each of the public subnets. It uses **Kubeadm** behind the scenes, to bootstrap the Kubernetes cluster.
+- Public IP address of the Bastian Host
+- Private IP addresses of the master nodes
+- DNS name of the internal AWS ELB sitting in front of the master nodes
 
-Inside the module, an **outputs** folder is generated. The outputs folder contains -
+You will also find the `kubeconfig.yaml` and `private-key.pem` (contains SSH private key) files at _/outputs_.
 
-- **kubeconfig.yaml** file.
-- **kubeadm-join.sh** script which contains the kubeadm join command.
-- **private-key.pem** file which contains the private key required to SSH into the nodes.
+## How to access the Kubernetes cluster
 
-## Limitations
+SSH into the Bastian Host using this command -
 
-Currently, this module is not flexible at all. Here are the limitations -
+```sh
+ssh -i ./outputs/private-key.pem ubuntu@bastian_host_public_ip
+chmod 0400 private-key.pem
+```
 
-- Only a single master node is created.
-- All nodes are provisioned in public subnets.
-- Ubuntu is the only supported OS.
+Then from the Bastian Host, SSH into the first master node.
 
-## Roadmap
+You can now access the Kubernetes cluster using `kubectl` 🙂.
 
-- [ ] Support high availability mode (multiple master nodes)
-- [ ] Write E2E tests using Terratest.
-- [ ] Provision all the nodes in private subnets.
+## Shoutout
+
+Open Source projects using which you can provision production grade self-managed Kubernetes clusters :
+
+- [Claudie](https://github.com/berops/claudie) - Can provision a single multi-cloud Kubernetes cluster.
+- [kOps](https://github.com/kubernetes/kops)
+
+## References
+
+- https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/
+- AWS Docs

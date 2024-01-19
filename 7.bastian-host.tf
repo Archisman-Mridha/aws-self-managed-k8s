@@ -1,3 +1,13 @@
+data "aws_ami" "amazon_linux_2" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "architecture"
+    values = ["arm64"]
+  }
+}
+
 resource "aws_instance" "bastian_host" {
   subnet_id = aws_subnet.public_subnet.id
 

@@ -1,0 +1,9 @@
+args = {
+
+  credentials = {
+    access_key = ""
+    secret_key = ""
+  }
+
+  ami_id = "ami-06e144013ce2477b6"
+}

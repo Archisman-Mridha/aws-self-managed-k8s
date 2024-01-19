@@ -1,5 +1,5 @@
-resource "null_resource" "bootstrap_remaining_master_nodes" {
-  count = length(aws_instance.master_nodes) - 1
+resource "null_resource" "add_master_nodes" {
+  count = local.master_node_count - 1
 
   provisioner "remote-exec" {
     connection {
@@ -17,10 +17,9 @@ resource "null_resource" "bootstrap_remaining_master_nodes" {
     on_failure = fail
 
     scripts = [
-      "${path.module}/scripts/prepare-node.sh",
       "${path.module}/outputs/kubeadm-join.as-master.sh"
     ]
   }
 
-  depends_on = [null_resource.fetch_kubeadm_join_script]
+  depends_on = [null_resource.fetch_files]
 }

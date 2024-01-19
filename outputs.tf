@@ -6,10 +6,6 @@ output "master_nodes_private_ip" {
   value = aws_instance.master_nodes.*.private_ip
 }
 
-output "worker_nodes_private_ip" {
-  value = aws_instance.worker_nodes.*.private_ip
-}
-
 output "kube_api_server_dns_name" {
   value = aws_elb.kube_api_server.dns_name
 }

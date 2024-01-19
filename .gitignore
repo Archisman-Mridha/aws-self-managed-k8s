@@ -5,3 +5,6 @@ terraform.tfstate
 terraform.tfstate.backup
 .terraform.tfstate.lock.info
 outputs
+
+# Packer
+variables.auto.pkrvars.hcl

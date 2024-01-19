@@ -65,3 +65,5 @@ sudo sysctl --system
 
 # Cleanup
 rm cni-plugins-linux-arm64-v1.3.0.tgz containerd-1.7.1-linux-arm64.tar.gz runc.arm64
+
+sudo rm -rf /var/lib/cloud

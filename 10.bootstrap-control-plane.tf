@@ -1,4 +1,4 @@
-resource "null_resource" "bootstrap_first_master_node" {
+resource "null_resource" "bootstrap_control_plane" {
   provisioner "remote-exec" {
     connection {
       host = aws_instance.master_nodes[0].private_ip
@@ -15,7 +15,6 @@ resource "null_resource" "bootstrap_first_master_node" {
     on_failure = fail
 
     inline = [
-      file("${path.module}/scripts/prepare-node.sh"),
       templatefile(
         "${path.module}/scripts/first-master-node.bootstrapper.sh",
         {
@@ -25,5 +24,5 @@ resource "null_resource" "bootstrap_first_master_node" {
     ]
   }
 
-  depends_on = [aws_elb_attachment.master_nodes]
+  depends_on = [aws_instance.master_nodes]
 }

@@ -3,7 +3,7 @@ resource "aws_subnet" "private_subnets" {
 
   vpc_id            = aws_vpc.this.id
   availability_zone = local.availability_zones[count.index]
-  cidr_block        = cidrsubnet(var.args.vpc_cidr, local.availability_zones_count + 1, count.index)
+  cidr_block        = cidrsubnet(local.vpc_cidr, local.subnet_count, count.index)
 
   depends_on = [aws_nat_gateway.this]
 }
