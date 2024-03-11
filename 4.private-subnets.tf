@@ -5,6 +5,10 @@ resource "aws_subnet" "private_subnets" {
   availability_zone = local.availability_zones[count.index]
   cidr_block        = cidrsubnet(local.vpc_cidr, local.subnet_count, count.index)
 
+  tags = {
+    format("kubernetes.io/cluster/%v", local.cluster_name) = "shared"
+  }
+
   depends_on = [aws_nat_gateway.this]
 }
 

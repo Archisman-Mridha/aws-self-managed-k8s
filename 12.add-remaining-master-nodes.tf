@@ -1,4 +1,4 @@
-resource "null_resource" "add_master_nodes" {
+resource "null_resource" "add_remaining_master_nodes" {
   count = local.master_node_count - 1
 
   provisioner "remote-exec" {

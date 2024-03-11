@@ -17,7 +17,8 @@ locals {
   subnet_count = length(local.availability_zones) + 1
 
   cluster_name      = "test"
-  master_node_count = length(local.availability_zones)
+  master_node_count = 1
+  worker_node_count = 1
 }
 
 output "outputs" {

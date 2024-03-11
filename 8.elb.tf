@@ -19,6 +19,11 @@ resource "aws_elb" "kube_api_server" {
 
   connection_draining = false
 
+  tags = {
+    KubernetesCluster                                      = local.cluster_name
+    format("kubernetes.io/cluster/%v", local.cluster_name) = "shared"
+  }
+
   health_check {
     target = "TCP:6443"
 

@@ -20,15 +20,6 @@ resource "null_resource" "fetch_files" {
         ubuntu@${aws_instance.master_nodes[0].private_ip}:kubeadm-join.as-worker.sh \
         ${path.module}/outputs/kubeadm-join.as-worker.sh
 
-      cp ${path.module}/outputs/kubeadm-join.as-worker.sh ${path.module}/outputs/temp.txt
-
-      cat <<EOF >${path.module}/outputs/kubeadm-join.as-worker.sh
-      #cloud-boothook
-      #!/bin/bash
-      sudo systemctl restart containerd
-      EOF
-
-      echo $(cat ${path.module}/outputs/temp.txt) >> ${path.module}/outputs/kubeadm-join.as-worker.sh
       rm ${path.module}/outputs/temp.txt
 
       ## --- Fetch 'kubeconfig.yaml' file. ---
