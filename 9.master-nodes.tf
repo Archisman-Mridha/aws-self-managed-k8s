@@ -4,7 +4,7 @@ resource "aws_instance" "master_nodes" {
   subnet_id = aws_subnet.private_subnets[count.index].id
 
   vpc_security_group_ids = [
-    aws_security_group.k8s_cluster.id
+    aws_security_group.node.id
   ]
 
   ami           = var.args.ami_id
@@ -17,6 +17,7 @@ resource "aws_instance" "master_nodes" {
 
   tags = {
     format("kubernetes.io/cluster/%v", local.cluster_name) = "owned"
+    "node-type"                                            = "master"
   }
 
   lifecycle {

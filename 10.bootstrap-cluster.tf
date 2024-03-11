@@ -1,4 +1,4 @@
-resource "null_resource" "bootstrap_control_plane" {
+resource "null_resource" "bootstrap_cluster" {
   provisioner "remote-exec" {
     connection {
       host = aws_instance.master_nodes[0].private_ip
@@ -15,12 +15,9 @@ resource "null_resource" "bootstrap_control_plane" {
     on_failure = fail
 
     inline = [
-      templatefile(
-        "${path.module}/scripts/first-master-node.bootstrapper.sh",
-        {
-          KUBE_API_PUBLIC_ENDPOINT : aws_elb.kube_api_server.dns_name
-        }
-      )
+      templatefile("${path.module}/scripts/first-master-node.bootstrapper.sh", {
+        KUBE_API_PUBLIC_ENDPOINT : aws_elb.kube_api_server.dns_name
+      })
     ]
   }
 

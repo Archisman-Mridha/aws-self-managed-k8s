@@ -9,19 +9,19 @@ packer {
 
 variable "args" {
   type= object({
-    aws_access_key= string
-    aws_secret_key= string
+    access_key= string
+    secret_key= string
 
-    aws_region= string
+    region= string
   })
 }
 
 source "amazon-ebs" "amazon_linux_2" {
   ami_name = "k8s-node"
-  region = var.args.aws_region
+  region = var.args.region
 
-  access_key = var.args.aws_access_key
-  secret_key = var.args.aws_secret_key
+  access_key = var.args.access_key
+  secret_key = var.args.secret_key
 
   instance_type = "t4g.small"
 

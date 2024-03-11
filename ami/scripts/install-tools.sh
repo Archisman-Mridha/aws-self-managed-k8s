@@ -36,7 +36,7 @@ sudo mkdir -p /etc/containerd &&
 # Restart ContainerD
 sudo systemctl restart containerd
 
-## Install Kubernetes components
+## --- Install Kubernetes components ---
 sudo apt-get update &&
   sudo apt-get install -y apt-transport-https ca-certificates curl
 # If the folder `/etc/apt/keyrings` does not exist, it should be created before the curl command.

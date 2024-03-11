@@ -1,11 +1,11 @@
-resource "aws_launch_template" "worker_node" {
+/* resource "aws_launch_template" "worker_node" {
   name_prefix = "worker-node"
 
   image_id      = var.args.ami_id
   instance_type = "t4g.small"
 
   key_name               = aws_key_pair.this.key_name
-  vpc_security_group_ids = [aws_security_group.k8s_cluster.id]
+  vpc_security_group_ids = [aws_security_group.node.id]
 
   user_data = filebase64("${path.module}/outputs/kubeadm-join.as-worker.sh")
 
@@ -13,7 +13,8 @@ resource "aws_launch_template" "worker_node" {
     resource_type = "instance"
 
     tags = {
-      "node-type" = "worker"
+      format("kubernetes.io/cluster/%v", local.cluster_name) = "owned"
+      "node-type"                                            = "worker"
     }
   }
 }
@@ -29,4 +30,4 @@ resource "aws_autoscaling_group" "worker_nodes" {
 
   min_size = 1
   max_size = 3
-}
+} */

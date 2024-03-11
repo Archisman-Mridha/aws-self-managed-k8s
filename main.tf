@@ -1,6 +1,8 @@
 terraform {
   required_version = ">= 1.4.6"
 
+  backend "local" {}
+
   required_providers {
 
     tls = {
@@ -12,7 +14,6 @@ terraform {
       source  = "hashicorp/aws"
       version = "4.66.1"
     }
-
   }
 }
 
